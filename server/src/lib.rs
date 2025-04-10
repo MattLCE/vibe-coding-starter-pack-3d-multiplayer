@@ -34,12 +34,14 @@
 // Declare modules
 mod common;
 mod player_logic;
+mod metrics;
 
 use spacetimedb::{ReducerContext, Identity, Table, Timestamp, ScheduleAt};
 use std::time::Duration; // Import standard Duration
 
 // Use items from common module (structs are needed for table definitions)
 use crate::common::{Vector3, InputState};
+use metrics::{ServerMetrics, MetricsWindow};
 
 // --- Schema Definitions ---
 
@@ -232,19 +234,22 @@ pub fn register_player(ctx: &ReducerContext, username: String, character_class: 
 }
 
 #[spacetimedb::reducer]
-pub fn update_player_input(
-    ctx: &ReducerContext,
-    input: InputState,
-    _client_pos: Vector3,
-    client_rot: Vector3,
-    client_animation: String,
-) {
-    if let Some(mut player) = ctx.db.player().identity().find(ctx.sender) {
-        player_logic::update_input_state(&mut player, input, client_rot, client_animation);
-        ctx.db.player().identity().update(player);
-    } else {
-        spacetimedb::log::warn!("Player {} tried to update input but is not active.", ctx.sender);
+pub fn update_player_input(ctx: &ReducerContext, input: InputState, position: Vector3, rotation: Vector3, animation: String) {
+    let start_time = ctx.timestamp;
+    
+    // Existing player update logic
+    if let Some(mut player) = ctx.db.player().filter_by_identity(&ctx.sender) {
+        player.position = position;
+        player.rotation = rotation;
+        player.current_animation = animation;
+        player.last_update = ctx.timestamp;
+        ctx.db.player().update_by_identity(player);
     }
+
+    // Record metrics for this update
+    let end_time = ctx.timestamp;
+    let update_time_ms = (end_time.micros() - start_time.micros()) as f32 / 1000.0;
+    metrics::record_update_metrics(ctx, update_time_ms);
 }
 
 #[spacetimedb::reducer(update)]

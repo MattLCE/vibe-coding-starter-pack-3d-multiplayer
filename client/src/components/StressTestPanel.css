@@ -1,0 +1,73 @@
+.stress-test-panel {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    width: 300px;
+}
+
+.stress-test-panel h2 {
+    margin: 0 0 20px;
+    font-size: 1.5em;
+}
+
+.stress-test-panel .control-group {
+    margin-bottom: 15px;
+}
+
+.stress-test-panel label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stress-test-panel input,
+.stress-test-panel select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #444;
+    background: #222;
+    color: white;
+    border-radius: 4px;
+}
+
+.stress-test-panel .toggle-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background: #2196F3;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.stress-test-panel .toggle-button.running {
+    background: #F44336;
+}
+
+.stress-test-panel .toggle-button:hover {
+    opacity: 0.9;
+}
+
+.stress-test-panel .metrics {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.stress-test-panel .metric-item,
+.stress-test-panel .pattern-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.stress-test-panel .pattern-distribution {
+    margin-top: 15px;
+}
+
+.stress-test-panel h3,
+.stress-test-panel h4 {
+    margin: 0 0 15px;
+    font-size: 1.2em;
+} 

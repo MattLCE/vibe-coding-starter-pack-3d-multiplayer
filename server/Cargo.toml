@@ -11,3 +11,4 @@ crate-type = ["cdylib"]
 [dependencies]
 spacetimedb = "1.0.1"
 log = "0.4"
+sysinfo = "0.21"
