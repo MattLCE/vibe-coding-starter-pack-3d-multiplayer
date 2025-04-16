@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "sh setup.sh"
+buildCommand = "bash setup.sh"
 
 [deploy]
 startCommand = "cd server && spacetime start && cd ../client && npm run build && npm run preview"
