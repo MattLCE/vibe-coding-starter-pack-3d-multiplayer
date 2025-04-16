@@ -6,6 +6,3 @@ buildCommand = "sh setup.sh"
 startCommand = "cd server && spacetime start && cd ../client && npm run build && npm run preview"
 healthcheckPath = "/"
 healthcheckTimeout = 100
-
-[service]
-name = "vibe-multiplayer" 
