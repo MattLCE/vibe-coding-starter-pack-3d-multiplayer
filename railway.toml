@@ -1,0 +1,11 @@
+[build]
+builder = "nixpacks"
+buildCommand = "sh setup.sh"
+
+[deploy]
+startCommand = "cd server && spacetime start && cd ../client && npm run build && npm run preview"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+
+[service]
+name = "vibe-multiplayer" 
